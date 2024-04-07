@@ -1,0 +1,26 @@
+function fourPath = convertToFourPath(onePixelPath)
+    onePixelPath = [0 1 0; 1 1 1; 0 1 0];
+    [rows, cols] = size(onePixelPath);
+    fourPath = zeros(rows*2-1, cols*2-1); % 4-yol matrisi oluştur
+    for i = 1:rows
+        for j = 1:cols
+            % Bir pikselin etrafını 1'lerle çevrele
+            if onePixelPath(i, j) == 1
+                fourPath(2*i-1, 2*j-1) = 1; % Orta noktayı işaretle
+                % Dikey ve yatay bitişik pikselleri işaretle
+                if i > 1
+                    fourPath(2*i-2, 2*j-1) = 1; % Yukarıdaki piksel
+                end
+                if i < rows
+                    fourPath(2*i, 2*j-1) = 1; % Aşağıdaki piksel
+                end
+                if j > 1
+                    fourPath(2*i-1, 2*j-2) = 1; % Sol taraftaki piksel
+                end
+                if j < cols
+                    fourPath(2*i-1, 2*j) = 1; % Sağ taraftaki piksel
+                end
+            end
+        end
+    end
+end
